@@ -19,7 +19,6 @@ RUN apt-get update && \
 COPY ./quakejs /quakejs
 WORKDIR /quakejs
 RUN npm install --only=production
-
 #Hardened image
 # Must be logged in to dhi.io (Docker Hardened Images)
 FROM dhi.io/debian-base@sha256:9525de383d949d1833d7353a5f3fcfdaaff3f2170dc6ed2170c6b7bddac5c109
@@ -28,8 +27,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
 COPY --from=builder /usr/bin/node /usr/bin/node
-COPY --from=builder /usr/lib/node_modules /usr/lib/node_modules
-COPY --from=builder /usr/bin/npm /usr/bin/npm
 COPY --from=builder /usr/bin/sed /usr/bin/sed
 COPY --from=builder /usr/bin/curl /usr/bin/curl
 COPY --from=builder /usr/bin/nc /usr/bin/nc
