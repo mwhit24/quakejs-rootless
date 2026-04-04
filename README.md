@@ -30,6 +30,8 @@ This project provides a completely local QuakeJS server that runs entirely in Do
 - Updated to a Docker Hardened Base Image (Debian)
 - Updated NPM packages where possible
 - Upgraded to Node.js 22.x LTS
+- Significant CVE reduction
+- A goal of zero High or Critical CVEs where possible
 - Nginx-light web server
 - Runs as non-root user
 - Small size ~280MB
