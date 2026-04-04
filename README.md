@@ -24,17 +24,15 @@ Try it live: **[gibs.oldschoolfrag.com](https://gibs.oldschoolfrag.com/)**
 
 ## About
 
-This project provides a completely local QuakeJS server that runs entirely in Docker. No external dependencies, no content servers, no proxies - just pure Quake III Arena gaming in your browser.
+This project provides a completely local QuakeJS server that runs entirely in Docker. No external dependencies - just Quake III Arena gaming in your browser.
+
+The primary goal is to repackage the work done by @treyyoder into a modern, lightweight, and secure container.
 
 **Key improvements in this fork:**
-- Updated to a Docker Hardened Base Image (Debian)
+- Modern base: Docker Hardened Image (Debian 13), Node.js 22.x LTS, Nginx-light
+- Security: Significant CVE reduction, goal of zero High or Critical CVEs, runs as non-root
 - Updated NPM packages where possible
-- Upgraded to Node.js 22.x LTS
-- Significant CVE reduction
-- A goal of zero High or Critical CVEs where possible
-- Nginx-light web server
-- Runs as non-root user
-- Small size ~280MB
+- Small image size (~280MB)
 
 ## Quick Start
 
@@ -67,7 +65,6 @@ Then open your browser and navigate to `http://localhost:8080` to start playing!
 Create a `docker-compose.yml` file:
 
 ```yaml
-version: '3.8'
 services:
   quakejs:
     container_name: quakejs
@@ -157,6 +154,7 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 | Base OS | Ubuntu 20.04 | **Debian 13 Docker Hardened Image** |
 | Node.js | 14.x | **22.x LTS** |
 | Web Server | Apache 2 | **Nginx Light** |
+| CVEs | 999+ | **Significantly reduced** |
 | Container User | root | **non-root** |
 
 ## 🙏 Credits & Acknowledgments
@@ -172,9 +170,3 @@ This wouldn't be possible without these projects:
 MIT
 
 ---
-
-<div align="center">
-
-*For best security: Rootless container + Podman + Nginx + firewall + regular updates*
-
-</div>
