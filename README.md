@@ -34,7 +34,7 @@ The primary goal is to repackage the work done by @treyyoder into a modern, ligh
 - Updated NPM packages where possible
 - Small image size (~280MB)
 
-**What this fork does not do:**
+**What this fork has not done (so far):**
 - Recompile original game code from ioquake3 (still old game code)
 - Introduce new functionality
 
