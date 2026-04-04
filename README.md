@@ -26,14 +26,18 @@ Try it live: **[gibs.oldschoolfrag.com](https://gibs.oldschoolfrag.com/)**
 
 This project provides a completely local QuakeJS server that runs entirely in Docker. No external dependencies, no content servers, no proxies - just pure Quake III Arena gaming in your browser.
 
+The primary goal is to repackage the work done by @treyyoder into a modern, lightweight, and secure container.
+
 **Key improvements in this fork:**
-- Updated to a Docker Hardened Base Image (Debian)
+- Modern base: Docker Hardened Image (Debian 13), Node.js 22.x LTS, Nginx-light
+- Security: Significant CVE reduction, goal of zero High or Critical CVEs, runs as non-root
 - Updated NPM packages where possible
-- Upgraded to Node.js 22.x LTS
-- Nginx-light web server multiplexing Web and Game traffic over a single port
-- Native HTTPS proxy support without altering game client files
-- Runs as non-root user
-- Small size ~280MB
+- Multiplexed web and game traffic over a single port
+- Small image size (~280MB)
+
+**What this fork has not done (so far):**
+- Recompile original game code from ioquake3 (still old game code)
+- Introduce new functionality
 
 ## Quick Start
 
@@ -143,16 +147,17 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 | Base OS | Ubuntu 20.04 | **Debian 13 Docker Hardened Image** |
 | Node.js | 14.x | **22.x LTS** |
 | Web Server | Apache 2 | **Nginx Light** |
-| Container User | root | **non-root** |
 | Networking | Dual Port | **Single Port Multiplexed via Nginx** |
+| CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 2 medium, 15 low** |
+| Container User | root | **non-root** |
+> *CVE counts as of 04.04.2026 — will vary over time as vulnerabilities are discovered and patched. Results provided by Docker Scout.*
 
 ## 🙏 Credits & Acknowledgments
-
-This wouldn't be possible without these projects:
-
+This wouldn't be possible without these projects or contributors:
 - **[@treyyoder](https://github.com/treyyoder)** - Original [quakejs-docker](https://github.com/treyyoder/quakejs-docker) implementation that made fully local QuakeJS servers possible
 - **[@nerosketch](https://github.com/nerosketch)** - [QuakeJS fork](https://github.com/nerosketch/quakejs.git) with local server capabilities
 - **[@inolen](https://github.com/inolen)** - Original [QuakeJS](https://github.com/inolen/quakejs) project
+- **[@mescanne](https://github.com/mescanne)** - Single-port multiplexing concept via Nginx WebSocket routing
 
 ## License
 
