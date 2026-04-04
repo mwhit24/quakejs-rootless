@@ -89,7 +89,9 @@
 				window.addEventListener('resize', resizeViewport);
 
 								// merge default args with query string args
-				var connectAddr = window.location.host;
+				var url = new URL(window.location.href);
+                                var port = url.port || (url.protocol === "https:" ? "443" : "80");
+                                var connectAddr = url.hostname + ":" + port;
 				var args = ['+set', 'fs_cdn', connectAddr, '+connect', connectAddr];
 				args.push.apply(args, getQueryCommands());
 				ioq3.callMain(args);
