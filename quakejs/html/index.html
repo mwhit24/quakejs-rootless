@@ -89,18 +89,7 @@
 				window.addEventListener('resize', resizeViewport);
 
 								// merge default args with query string args
-				var host = window.location.hostname;
-				var port = window.location.port || (window.location.protocol === 'https:' ? '443' : '80');
-				var connectAddr = host + ':' + port;
-
-				// Add Content-Security-Policy to automatically fix HTTPS -> WSS mixed content
-				if (window.location.protocol === 'https:') {
-					var meta = document.createElement('meta');
-					meta.httpEquiv = "Content-Security-Policy";
-					meta.content = "upgrade-insecure-requests";
-					document.head.appendChild(meta);
-				}
-
+				var connectAddr = window.location.host;
 				var args = ['+set', 'fs_cdn', connectAddr, '+connect', connectAddr];
 				args.push.apply(args, getQueryCommands());
 				ioq3.callMain(args);
