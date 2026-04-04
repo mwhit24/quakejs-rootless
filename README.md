@@ -8,8 +8,6 @@
 
 [![Docker Hub](https://img.shields.io/badge/Docker%20Hub-awakenedpower%2Fquakejs--rootless-blue?style=for-the-badge&logo=docker)](https://hub.docker.com/r/awakenedpower/quakejs-rootless)
 
-A fully self-contained, Dockerized QuakeJS server running on Debian 13 and Node.js 22.x LTS
-
 ## Demo
 
 Try it live: **[gibs.oldschoolfrag.com](https://gibs.oldschoolfrag.com/)**
@@ -18,9 +16,9 @@ Try it live: **[gibs.oldschoolfrag.com](https://gibs.oldschoolfrag.com/)**
 
 ## About
 
-This project provides a completely local QuakeJS server that runs entirely in Docker. No external dependencies, no content servers, no proxies - just pure Quake III Arena gaming in your browser.
+This project provides a completely local QuakeJS server that runs entirely in a single container.
 
-The primary goal is to repackage the work done by @treyyoder into a modern, lightweight, and secure container.
+The project goal is to repackage the work done by @treyyoder into a modern, lightweight, and secure container.
 
 **Key improvements in this fork:**
 - Modern base: Docker Hardened Image (Debian 13), Node.js 22.x LTS, Nginx-light
@@ -63,7 +61,6 @@ Create a `docker-compose.yml` file:
 services:
   quakejs:
     container_name: quakejs
-    # To use the pre-built image:
     image: awakenedpower/quakejs-rootless:latest
     ports:
       - '8080:8080'
