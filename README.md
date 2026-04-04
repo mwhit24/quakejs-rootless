@@ -1,13 +1,7 @@
 
 
 <div align="center">
-  
-For a more advanced and modern setup consider **[lklacar/q3js](https://github.com/lklacar/q3js)** - it's a modern and feature-rich implementation.
-
-**For simplicity:** This project provides a **single-container solution** that's perfect for smaller setups.
-
----
-  
+ 
 # QuakeJS Rootless Project
 
 ## Play multiplayer Quake III Arena in your browser with Podman / Docker
@@ -161,9 +155,3 @@ This wouldn't be possible without these projects or contributors:
 MIT
 
 ---
-
-<div align="center">
-
-*For best security: Rootless container + Podman + Nginx + firewall + regular updates*
-
-</div>
