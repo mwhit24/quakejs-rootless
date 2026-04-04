@@ -16,7 +16,7 @@ Try it live: **[gibs.oldschoolfrag.com](https://gibs.oldschoolfrag.com/)**
 
 ## About
 
-This project provides a fully local QuakeJS server that runs in a single container built on @treyyoder's original QuakeJS project, resulting in a modern, lightweight, and secure alternative.
+This project fork provides a fully local QuakeJS server built on @treyyoder's original QuakeJS project with the goal of a creating modern, lightweight, and secure alternative.
 
 **Key improvements in this fork:**
 - Modern base: Docker Hardened Image (Debian 13), Node.js 22.x LTS, Nginx-light
