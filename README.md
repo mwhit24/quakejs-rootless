@@ -154,8 +154,9 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 | Base OS | Ubuntu 20.04 | **Debian 13 Docker Hardened Image** |
 | Node.js | 14.x | **22.x LTS** |
 | Web Server | Apache 2 | **Nginx Light** |
-| CVEs | 999+ | **Significantly reduced** |
+| CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 2 medium, 15 low** |
 | Container User | root | **non-root** |
+> *CVE counts as of 04.04.2026 — will vary over time as vulnerabilities are discovered and patched.*
 
 ## 🙏 Credits & Acknowledgments
 
