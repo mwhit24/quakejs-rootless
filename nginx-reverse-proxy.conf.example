@@ -10,25 +10,21 @@
 ## Setup Instructions:
 ## 1. Copy this file to: /config/nginx/site-confs/quakejs.conf (in SWAG container)
 ## 2. Replace 'example.com' with your domain (e.g., quake.yourdomain.com or yourdomain.com)
-## 3. Update certificate paths if using custom locations
-## 4. Verify 'quakejs' matches your container name (or update to match)
-## 5. Verify that SWAG and quakejs-rootless are on the same Docker network
-## 6. Restart SWAG container: docker restart swag
+## 3. Verify 'quakejs' matches your container name (or update to match)
+## 4. Verify that SWAG and quakejs-rootless are on the same Docker network
+## 5. Restart SWAG container: docker restart swag
 ##
-## Architecture: Internet → SWAG (443 + 27960) → quakejs-rootless (8080 + 27960)
+## Architecture: Internet → SWAG (443) → quakejs-rootless (8080)
 ## Ports only required to be published on SWAG container
 ## Documentation: https://docs.linuxserver.io/general/swag/
 
-# HTTP interface on port 443
+# Unified Web and WebSocket interface on port 443
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
     server_name example.com;
-
     include /config/nginx/ssl.conf;
-
     client_max_body_size 0;
-
     location / {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
@@ -36,36 +32,7 @@ server {
         set $upstream_port 8080;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        # Add security headers
+        # Security headers
         add_header Content-Security-Policy "upgrade-insecure-requests" always;
-    }
-}
-# WebSocket SSL server on port 27960
-
-server {
-    listen 27960 ssl;
-    listen [::]:27960 ssl;
-    server_name example.com;
-
-    ssl_certificate     /config/etc/letsencrypt/live/example.com/fullchain.pem;
-    ssl_certificate_key /config//etc/letsencrypt/live/example.com/privkey.pem;
-
-    location / {
-        proxy_pass http://quakejs:27960;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_connect_timeout 7d;
-        proxy_send_timeout 7d;
-        proxy_read_timeout 7d;
-        proxy_buffering off;
     }
 }
