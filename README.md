@@ -66,14 +66,11 @@ Then open your browser and navigate to `http://localhost:8080` to start playing!
 Create a `docker-compose.yml` file:
 
 ```yaml
-version: '3.8'
 services:
   quakejs:
     container_name: quakejs
     # To use the pre-built image:
     image: awakenedpower/quakejs-rootless:latest
-    # Or to build directly from the repository source, uncomment the following line and comment out 'image' above:
-    # build: https://github.com/JackBrenn/quakejs-rootless.git
     ports:
       - '8080:8080'
     restart: unless-stopped
