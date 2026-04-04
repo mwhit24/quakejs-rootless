@@ -156,7 +156,7 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 | Web Server | Apache 2 | **Nginx Light** |
 | CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 2 medium, 15 low** |
 | Container User | root | **non-root** |
-> *CVE counts as of 04.04.2026 — will vary over time as vulnerabilities are discovered and patched.*
+> *CVE counts as of 04.04.2026 — will vary over time as vulnerabilities are discovered and patched. Results provided by Docker Scout.*
 
 ## 🙏 Credits & Acknowledgments
 
