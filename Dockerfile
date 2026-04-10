@@ -21,7 +21,7 @@ WORKDIR /quakejs
 RUN npm install --only=production
 #Hardened image
 # Must be logged in to dhi.io (Docker Hardened Images)
-FROM dhi.io/debian-base@sha256:9525de383d949d1833d7353a5f3fcfdaaff3f2170dc6ed2170c6b7bddac5c109
+FROM dhi.io/debian-base@sha256:4319c9f7d0e511878a08675dc5f9e0b07e526a21fc790d0f1b1b252b74be2c8e
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
