@@ -1,5 +1,3 @@
-
-
 <div align="center">
  
 # QuakeJS Rootless Project
@@ -148,5 +146,3 @@ This wouldn't be possible without these projects or contributors:
 ## License
 
 MIT
-
----
