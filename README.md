@@ -69,6 +69,44 @@ helm install quake oci://ghcr.io/<owner>/<repo>/quake \
   --create-namespace
 ```
 
+<details>
+<summary>ArgoCD Application example</summary>
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quake
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: oci://ghcr.io/<owner>/<repo>
+    chart: quake
+    targetRevision: 0.1.0
+    helm:
+      values: |
+        ingress:
+          enabled: true
+          className: ""
+          hosts:
+            - host: quake.example.com
+              tls: false
+        quake:
+          fsCdn: quake.example.com
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: quakejs
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
+
+</details>
+
 Important values:
 
 ```yaml
