@@ -51,7 +51,7 @@ Then open your browser and navigate to `http://localhost:8080` to start playing!
 
 ### Using Kubernetes with Helm
 
-This repository includes a Helm chart in `.helm/`. The CI workflow builds and pushes a multi-arch image for `linux/amd64` and `linux/arm64`, then packages the chart as an OCI artifact with the image pinned as `tag@sha256:<digest>`.
+This repository includes a Helm chart in `.helm/`. The CI workflow builds and pushes a `linux/amd64` image, then packages the chart as an OCI artifact with the image pinned as `tag@sha256:<digest>`.
 
 Local install:
 
