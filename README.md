@@ -61,6 +61,14 @@ helm install quake .helm \
   --create-namespace
 ```
 
+Install from the published OCI Helm chart:
+
+```bash
+helm install quake oci://ghcr.io/<owner>/<repo>/quake \
+  --namespace quakejs \
+  --create-namespace
+```
+
 Important values:
 
 ```yaml
