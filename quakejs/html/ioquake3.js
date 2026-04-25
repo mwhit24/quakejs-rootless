@@ -21802,6 +21802,7 @@ function copyTempDouble(ptr) {
         '<p><strong>Credits & Attribution:</strong></p>' +
         '<ul>' +
         '<li>Container built using <a href="https://github.com/JackBrenn/quakejs-rootless" target="_blank">quakejs-rootless</a> by <a href="https://github.com/JackBrenn" target="_blank">@JackBrenn</a></li>' +
+        '<li>Hardened Kubernetes Helm chart and OCI publishing workflow by <a href="https://github.com/jonasbg" target="_blank">@jonasbg</a></li>' +
         '<li>Based on <a href="https://github.com/treyyoder/quakejs-docker" target="_blank">quakejs-docker</a> by <a href="https://github.com/treyyoder" target="_blank">@treyyoder</a></li>' +
         '<li>QuakeJS fork with local server by <a href="https://github.com/nerosketch/quakejs" target="_blank">@nerosketch</a> (archived)</li>' +
         '<li>Original <a href="https://github.com/inolen/quakejs" target="_blank">QuakeJS</a> by <a href="https://github.com/inolen" target="_blank">@inolen</a></li>' +
@@ -30990,7 +30991,6 @@ run();
 
 
 // {{MODULE_ADDITIONS}}
-
 
 
 
