@@ -49,6 +49,39 @@ docker run -d \
 
 Then open your browser and navigate to `http://localhost:8080` to start playing!
 
+### Using Kubernetes with Helm
+
+This repository includes a Helm chart in `.helm/`. The CI workflow builds and pushes a multi-arch image for `linux/amd64` and `linux/arm64`, then packages the chart as an OCI artifact with the image pinned as `tag@sha256:<digest>`.
+
+Local install:
+
+```bash
+helm install quake .helm \
+  --namespace quakejs \
+  --create-namespace
+```
+
+Important values:
+
+```yaml
+image:
+  repository: docker.io/awakenedpower/quakejs-rootless
+  tag: latest
+
+ingress:
+  enabled: false
+  className: ""
+  hosts:
+    - host: quake.example.com
+      tls: false
+
+quake:
+  fsCdn: localhost:8080
+  fsGame: baseq3
+```
+
+For ArgoCD, consume the published OCI Helm chart and override values there rather than editing rendered manifests.
+
 ### Using Docker Compose
 
 Create a `docker-compose.yml` file:

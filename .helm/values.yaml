@@ -1,0 +1,96 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/awakenedpower/quakejs-rootless
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 65532
+  runAsGroup: 65532
+  fsGroup: 65532
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: quake.example.com
+      tls: false
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+quake:
+  fsCdn: localhost:8080
+  fsGame: baseq3
+  serverConfigFile: server.cfg
+  serverConfig: |
+    seta sv_hostname "quake.example.com"
+    seta sv_maxclients 20
+    seta g_motd "Welcome to quake.example.com"
+    seta g_quadfactor 3
+    seta g_gametype 0
+    seta timelimit 10
+    seta fraglimit 20
+    seta g_weaponrespawn 3
+    seta g_inactivity 3000
+    seta g_forcerespawn 0
+    seta rconpassword "default-password!"
+    set d1 "map q3dm1 ; set nextmap vstr d2"
+    set d2 "map q3dm7 ; set nextmap vstr d3"
+    set d3 "map q3dm17 ; set nextmap vstr d4"
+    set d4 "map pro-q3tourney2 ; set nextmap vstr d5"
+    set d5 "map pro-q3tourney4 ; set nextmap vstr d6"
+    set d6 "map pro-q3dm6 ; set nextmap vstr d7"
+    set d7 "map pro-q3dm13 ; set nextmap vstr d8"
+    set d8 "map q3tourney2 ; set nextmap vstr d1"
+    vstr d1
+
+resources: {}
+
+startupProbe:
+  httpGet:
+    path: /
+    port: http-game
+  periodSeconds: 2
+  failureThreshold: 30
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http-game
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http-game
+  initialDelaySeconds: 30
+  periodSeconds: 30
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
