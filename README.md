@@ -49,6 +49,26 @@ docker run -d \
 
 Then open your browser and navigate to `http://localhost:8080` to start playing!
 
+### Using Docker Compose
+
+Create a `docker-compose.yml` file:
+
+```yaml
+services:
+  quakejs:
+    container_name: quakejs
+    image: awakenedpower/quakejs-rootless:latest
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
+```
+
+Then run:
+
+```bash
+docker-compose up -d
+```
+
 ### Using Kubernetes with Helm
 
 This repository includes a Helm chart in `.helm/`. The CI workflow builds and pushes a `linux/amd64` image, then packages the chart as an OCI artifact with the image pinned as `tag@sha256:<digest>`.
@@ -127,26 +147,6 @@ quake:
 ```
 
 For ArgoCD, consume the published OCI Helm chart and override values there rather than editing rendered manifests.
-
-### Using Docker Compose
-
-Create a `docker-compose.yml` file:
-
-```yaml
-services:
-  quakejs:
-    container_name: quakejs
-    image: awakenedpower/quakejs-rootless:latest
-    ports:
-      - '8080:8080'
-    restart: unless-stopped
-```
-
-Then run:
-
-```bash
-docker-compose up -d
-```
 
 ## Building from Source
 
