@@ -81,7 +81,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://ghcr.io/<owner>/<repo>
+    repoURL: oci://ghcr.io/jackbrenn/quakejs-rootless
     chart: quake
     targetRevision: 0.1.0
     helm:
