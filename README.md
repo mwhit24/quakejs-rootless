@@ -214,6 +214,7 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 
 ## 🙏 Credits & Acknowledgments
 This wouldn't be possible without these projects or contributors:
+- **[@jonasbg](https://github.com/jonasbg)** - Hardened Kubernetes Helm chart and OCI publishing workflow
 - **[@treyyoder](https://github.com/treyyoder)** - Original [quakejs-docker](https://github.com/treyyoder/quakejs-docker) implementation that made fully local QuakeJS servers possible
 - **[@nerosketch](https://github.com/nerosketch)** - [QuakeJS fork](https://github.com/nerosketch/quakejs.git) with local server capabilities
 - **[@inolen](https://github.com/inolen)** - Original [QuakeJS](https://github.com/inolen/quakejs) project
