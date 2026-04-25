@@ -113,7 +113,7 @@ spec:
             - host: quake.example.com
               tls: false
         quake:
-          fsCdn: quake.example.com
+          fsCdn: localhost:8080
   destination:
     server: https://kubernetes.default.svc
     namespace: quakejs
