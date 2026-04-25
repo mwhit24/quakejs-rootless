@@ -147,7 +147,7 @@ jobs:
           chart_name=$(awk -F': ' '/^name:/ {print $2; exit}' .helm/Chart.yaml)
 
           if [ "${{ github.ref_name }}" = "${{ github.event.repository.default_branch }}" ]; then
-            chart_repo="oci://${{ env.REGISTRY_HOST }}/${{ env.REPOSITORY_LOWER }}"
+            chart_repo="oci://${{ env.REGISTRY_HOST }}/${{ env.REPOSITORY_LOWER }}/helm"
           else
             chart_repo="oci://${{ env.REGISTRY_HOST }}/${{ env.REPOSITORY_LOWER }}/helm/dev"
           fi

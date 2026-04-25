@@ -84,7 +84,7 @@ helm install quake .helm \
 Install from the published OCI Helm chart:
 
 ```bash
-helm install quake oci://ghcr.io/<owner>/<repo>/quake \
+helm install quake oci://ghcr.io/jackbrenn/quakejs-rootless/helm/quake \
   --namespace quakejs \
   --create-namespace
 ```
@@ -101,7 +101,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://ghcr.io/jackbrenn/quakejs-rootless
+    repoURL: oci://ghcr.io/jackbrenn/quakejs-rootless/helm
     chart: quake
     targetRevision: 0.1.0
     helm:
