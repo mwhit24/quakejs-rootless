@@ -69,6 +69,82 @@ Then run:
 docker-compose up -d
 ```
 
+### Using Kubernetes with Helm
+
+This repository includes a Helm chart in `.helm/`. The CI workflow builds and pushes a `linux/amd64` image, then packages the chart as an OCI artifact with the image pinned as `tag@sha256:<digest>`.
+
+Local install:
+
+```bash
+helm install quake .helm \
+  --namespace quakejs \
+  --create-namespace
+```
+
+Install from the published OCI Helm chart:
+
+```bash
+helm install quake oci://ghcr.io/jackbrenn/quakejs-rootless/helm/quake \
+  --namespace quakejs \
+  --create-namespace
+```
+
+<details>
+<summary>ArgoCD Application example</summary>
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quake
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: oci://ghcr.io/jackbrenn/quakejs-rootless/helm
+    chart: quake
+    targetRevision: 0.1.0
+    helm:
+      values: |
+        ingress:
+          enabled: true
+          className: ""
+          hosts:
+            - host: quake.example.com
+              tls: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: quakejs
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
+
+</details>
+
+Important values:
+
+```yaml
+image:
+  repository: docker.io/awakenedpower/quakejs-rootless
+  tag: latest
+
+ingress:
+  enabled: false
+  className: ""
+  hosts:
+    - host: quake.example.com
+      tls: false
+
+quake:
+  fsGame: baseq3
+```
+
+For ArgoCD, consume the published OCI Helm chart and override values there rather than editing rendered manifests.
+
 ## Building from Source
 
 ### Building with Podman (Recommended)
@@ -138,6 +214,7 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 
 ## 🙏 Credits & Acknowledgments
 This wouldn't be possible without these projects or contributors:
+- **[@jonasbg](https://github.com/jonasbg)** - Hardened Kubernetes Helm chart and OCI publishing workflow
 - **[@treyyoder](https://github.com/treyyoder)** - Original [quakejs-docker](https://github.com/treyyoder/quakejs-docker) implementation that made fully local QuakeJS servers possible
 - **[@nerosketch](https://github.com/nerosketch)** - [QuakeJS fork](https://github.com/nerosketch/quakejs.git) with local server capabilities
 - **[@inolen](https://github.com/inolen)** - Original [QuakeJS](https://github.com/inolen/quakejs) project
