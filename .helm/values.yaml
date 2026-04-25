@@ -43,6 +43,9 @@ ingress:
           pathType: ImplementationSpecific
 
 quake:
+  # Internal CDN address used by the dedicated server during startup.
+  # Keep this as localhost:8080 for the bundled nginx/assets sidecar-in-container.
+  # Browser clients derive their public connect/CDN host from the URL serving index.html.
   fsCdn: localhost:8080
   fsGame: baseq3
   serverConfigFile: server.cfg
