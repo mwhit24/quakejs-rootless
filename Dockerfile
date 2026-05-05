@@ -1,5 +1,5 @@
 #Builder
-FROM debian:trixie-slim AS builder
+FROM dhi.io/debian-base@sha256:51c849853dcfcb92e6d387ad74e21eef6104174546ec8e0ebfd36076176208c8 AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
@@ -10,6 +10,9 @@ RUN apt-get update && \
         curl \
         netcat-openbsd \
         ca-certificates && \
+    echo 'adm:x:4:' >> /etc/group && \
+    echo 'www-data:x:33:' >> /etc/group && \
+    echo 'www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin' >> /etc/passwd && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
     apt-get install -y --no-install-recommends nginx-light && \
