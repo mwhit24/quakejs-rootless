@@ -1,5 +1,7 @@
 #Builder
-FROM dhi.io/debian-base@sha256:51c849853dcfcb92e6d387ad74e21eef6104174546ec8e0ebfd36076176208c8 AS builder
+#Hardened image
+# Must be logged in to dhi.io (Docker Hardened Images)
+FROM dhi.io/debian-base@sha256:352337d438f58459d1058c1d418a6531dabe773e972d94db83f2478ea67babee AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
@@ -24,7 +26,7 @@ WORKDIR /quakejs
 RUN npm install --only=production
 #Hardened image
 # Must be logged in to dhi.io (Docker Hardened Images)
-FROM dhi.io/debian-base@sha256:4319c9f7d0e511878a08675dc5f9e0b07e526a21fc790d0f1b1b252b74be2c8e
+FROM dhi.io/debian-base@sha256:161336c446b1578de75a67589bd3d90a98dbbcb07f5d81e3f5332a95e0200208
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
