@@ -1,7 +1,7 @@
 #Builder
 #Hardened image
 # Must be logged in to dhi.io (Docker Hardened Images)
-FROM dhi.io/debian-base@sha256:352337d438f58459d1058c1d418a6531dabe773e972d94db83f2478ea67babee AS builder
+FROM dhi.io/debian-base@sha256:944bb61172edf1c2eb7495b0e5d82f9c22358eeffee268c1b3eb207e8a1a73cc AS builder
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
@@ -15,7 +15,17 @@ RUN apt-get update && \
     echo 'adm:x:4:' >> /etc/group && \
     echo 'www-data:x:33:' >> /etc/group && \
     echo 'www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin' >> /etc/passwd && \
-    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x -o /tmp/setup_22.x && \
+    EXPECTED_HASH="3006f2db559850b2ecd25296f918e30bb156f04589b1d92af4c60f7b82005c77b69917d15265bff44b90f3bf6f992062fc305e2c85d0d0efef41edef7360baab" && \
+    ACTUAL_HASH=$(sha512sum /tmp/setup_22.x | awk '{print $1}') && \
+    if [ "$ACTUAL_HASH" != "$EXPECTED_HASH" ]; then \
+        echo "ERROR: Hash verification failed for setup_22.x" && \
+        echo "  Expected: $EXPECTED_HASH" && \
+        echo "  Actual:   $ACTUAL_HASH" && \
+        exit 1; \
+    fi && \
+    bash /tmp/setup_22.x && \
+    rm -f /tmp/setup_22.x && \
     apt-get install -y --no-install-recommends nodejs && \
     apt-get install -y --no-install-recommends nginx-light && \
     apt-get clean && \
@@ -24,9 +34,10 @@ RUN apt-get update && \
 COPY ./quakejs /quakejs
 WORKDIR /quakejs
 RUN npm install --only=production
+
 #Hardened image
 # Must be logged in to dhi.io (Docker Hardened Images)
-FROM dhi.io/debian-base@sha256:161336c446b1578de75a67589bd3d90a98dbbcb07f5d81e3f5332a95e0200208
+FROM dhi.io/debian-base@sha256:6361466d2fd3c7b2ff12302e4baede7a9945d6e5caee8e3a699b194893757dff
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
