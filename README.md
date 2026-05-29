@@ -208,9 +208,9 @@ This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://
 | Node.js | 14.x | **22.x LTS** |
 | Web Server | Apache 2 | **Nginx Light** |
 | Networking | Dual Port | **Single Port Multiplexed via Nginx** |
-| CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 2 medium, 15 low** |
+| CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 1 medium, 15 low** |
 | Container User | root | **non-root** |
-> *CVE counts as of 04.04.2026 — Results provided by Docker Scout.*
+> *CVE counts as of 29.05.2026 — Results provided by Docker Scout.*
 
 ## 🙏 Credits & Acknowledgments
 This wouldn't be possible without these projects or contributors:
