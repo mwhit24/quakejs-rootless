@@ -4,10 +4,20 @@ var fs = require('fs');
 var logger = require('winston');
 var path = require('path');
 var exec = require('child_process').exec;
-var execSync = require('execSync').exec;
+var spawnSync = require('child_process').spawnSync;
 var os = require('os');
-var temp = require('temp');
-var wrench = require('wrench');
+
+// Drop-in replacement for the old `execSync` package's .exec(): runs a command
+// synchronously via the shell and returns { code, stdout } without throwing on
+// a non-zero exit (native child_process.execSync throws, which would change
+// the control flow that checks `result.code`).
+function execSync(command) {
+	var result = spawnSync(command, { shell: true, encoding: 'utf8' });
+	return {
+		code: result.status === null ? 1 : result.status,
+		stdout: (result.stdout || '') + (result.stderr || '')
+	};
+}
 
 var baseGame = 'baseq3';
 var commonReferenceThreshold = 3;
@@ -144,7 +154,7 @@ function extractPak(pak, dest) {
 }
 
 function flattenPaks(paks) {
-	var tempDir = temp.mkdirSync('flattened');
+	var tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'flattened-'));
 
 	// sort the paks in ascending order before extracting
 	paks = paks.sort();
@@ -195,7 +205,7 @@ function graphGame(graph, game, root) {
 
 	var gameV = graph.addGame(game, gameWhitelist);
 
-	var files = wrench.readdirSyncRecursive(root).filter(function (file) {
+	var files = fs.readdirSync(root, { recursive: true }).filter(function (file) {
 		var absolute = path.join(root, file);
 
 		if (gameBlacklist.matches(file)) {
@@ -305,7 +315,7 @@ function writePak(pak, fileMap, splitThreshold, callback) {
 
 	logger.info('writing ' + currentPak);
 
-	wrench.mkdirSyncRecursive(path.dirname(currentPak));
+	fs.mkdirSync(path.dirname(currentPak), { recursive: true });
 
 	nextFile();
 }
@@ -317,7 +327,7 @@ getGames(dest).map(function (file) {
 	return path.join(dest, file);
 }).forEach(function (dir) {
 	logger.info('deleting ' + dir);
-	wrench.rmdirSyncRecursive(dir);
+	fs.rmSync(dir, { recursive: true, force: true });
 });
 
 //

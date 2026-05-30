@@ -8,7 +8,6 @@ var http = require('http');
 var logger = require('winston');
 var path = require('path');
 var send = require('send');
-var wrench = require('wrench');
 var zlib = require('zlib');
 
 var argv = require('yargs')
@@ -25,7 +24,7 @@ var currentManifestTimestamp;
 var currentManifest;
 
 function getAssets() {
-	return wrench.readdirSyncRecursive(config.root).filter(function (file) {
+	return fs.readdirSync(config.root, { recursive: true }).filter(function (file) {
 		var ext = path.extname(file);
 		return validAssets.indexOf(ext) !== -1;
 	}).map(function (file) {
