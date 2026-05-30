@@ -33,7 +33,7 @@ RUN apt-get update && \
 
 COPY ./quakejs /quakejs
 WORKDIR /quakejs
-RUN npm install --only=production
+RUN npm install --omit=dev
 
 #Hardened image
 # Must be logged in to dhi.io (Docker Hardened Images)
