@@ -16681,8 +16681,8 @@ function copyTempDouble(ptr) {
   
           if (ENVIRONMENT_IS_NODE) {
             peer.socket.on('open', handleOpen);
-            peer.socket.on('message', function(data, flags) {
-              if (!flags.binary) {
+            peer.socket.on('message', function(data, isBinary) {
+              if (!isBinary) {
                 return;
               }
               handleMessage((new Uint8Array(data)).buffer);  // copy from node Buffer -> ArrayBuffer
@@ -21797,24 +21797,14 @@ function copyTempDouble(ptr) {
   		// add eula frame to viewport
   		var eula = document.createElement('div');
   		eula.id = 'eula-frame';
-      eula.innerHTML = '<div id="eula-frame-inner">' +
-        '<h2>QuakeJS - Browser-Based Quake III Arena</h2>' +
-        '<p><strong>Credits & Attribution:</strong></p>' +
-        '<ul>' +
-        '<li>Container built using <a href="https://github.com/JackBrenn/quakejs-rootless" target="_blank">quakejs-rootless</a> by <a href="https://github.com/JackBrenn" target="_blank">@JackBrenn</a></li>' +
-        '<li>Hardened Kubernetes Helm chart and OCI publishing workflow by <a href="https://github.com/jonasbg" target="_blank">@jonasbg</a></li>' +
-        '<li>Based on <a href="https://github.com/treyyoder/quakejs-docker" target="_blank">quakejs-docker</a> by <a href="https://github.com/treyyoder" target="_blank">@treyyoder</a></li>' +
-        '<li>QuakeJS fork with local server by <a href="https://github.com/nerosketch/quakejs" target="_blank">@nerosketch</a> (archived)</li>' +
-        '<li>Original <a href="https://github.com/inolen/quakejs" target="_blank">QuakeJS</a> by <a href="https://github.com/inolen" target="_blank">@inolen</a></li>' +
-        '</ul>' +
-        '<hr>' +
-        '<p>In order to continue, the official Quake3 demo will need to be installed into the browser\'s persistent storage.</p>' +
-        '<p>Please read through the demo\'s EULA and click "I Agree" if you agree to it and would like to continue.</p>' +
-        '<pre id="eula">' + SYSC.eula + '</pre>' +
-        '<button id="agree" class="btn btn-success">I Agree</button>' +
-        '<button id="dont-agree" class="btn btn-danger">I Don\'t Agree</button>' +
-        '</div>';
-      SYS.eula = Module['viewport'].appendChild(eula);
+  		eula.innerHTML = '<div id="eula-frame-inner">' +
+  			'<p>In order to continue, the official Quake3 demo will need to be installed into the browser\'s persistent storage.</p>' +
+  			'<p>Please read through the demo\'s EULA and click "I Agree" if you agree to it and would like to continue.</p>' +
+  			'<pre id="eula">' + SYSC.eula + '</pre>' +
+  			'<button id="agree" class="btn btn-success">I Agree</button>' +
+  			'<button id="dont-agree" class="btn btn-success">I Don\'t Agree</button>' +
+  			'</div>';
+  		SYS.eula = Module['viewport'].appendChild(eula);
   	}
 
   function _Sys_Dirname(path) {
@@ -30991,6 +30981,7 @@ run();
 
 
 // {{MODULE_ADDITIONS}}
+
 
 
 
