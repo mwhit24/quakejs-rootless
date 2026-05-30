@@ -65,7 +65,6 @@ RUN mkdir -p /home/nonroot/www && \
 
 COPY --chown=65532:65532 server.cfg /quakejs/base/baseq3/server.cfg
 COPY --chown=65532:65532 server.cfg /quakejs/base/cpma/server.cfg
-COPY --chown=65532:65532 ./include/ioq3ded/ioq3ded.fixed.js /quakejs/build/ioq3ded.js
 
 RUN cp /quakejs/html/* /home/nonroot/www/ && \
     chown -R 65532:65532 /home/nonroot/www
