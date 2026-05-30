@@ -9640,10 +9640,8 @@ function copyTempDouble(ptr) {
   			var readline = require('readline');
   			var lines = SYSC.eula.split('\n');
   
-  			console.log('In order to continue, the official Quake3 demo will need to be installed.');
-  			console.log('Please read through the demo\'s EULA and type \'y\' if you agree to it and would like to continue.\n');
-  
-  			console.log(lines.pop());
+  			console.log('By running this container you agree to the official Quake3 demo EULA.');
+			return callback();
   
   			var rl = readline.createInterface(process.stdin, process.stdout);
   			rl.prompt();
@@ -10036,8 +10034,8 @@ function copyTempDouble(ptr) {
   
           if (ENVIRONMENT_IS_NODE) {
             peer.socket.on('open', handleOpen);
-            peer.socket.on('message', function(data, flags) {
-              if (!flags.binary) {
+            peer.socket.on('message', function(data, isBinary) {
+              if (!isBinary) {
                 return;
               }
               handleMessage((new Uint8Array(data)).buffer);  // copy from node Buffer -> ArrayBuffer

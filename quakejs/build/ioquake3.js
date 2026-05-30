@@ -16681,8 +16681,8 @@ function copyTempDouble(ptr) {
   
           if (ENVIRONMENT_IS_NODE) {
             peer.socket.on('open', handleOpen);
-            peer.socket.on('message', function(data, flags) {
-              if (!flags.binary) {
+            peer.socket.on('message', function(data, isBinary) {
+              if (!isBinary) {
                 return;
               }
               handleMessage((new Uint8Array(data)).buffer);  // copy from node Buffer -> ArrayBuffer
