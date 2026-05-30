@@ -148,6 +148,7 @@ For ArgoCD, consume the published OCI Helm chart and override values there rathe
 ## Building from Source
 
 ### Building with Podman (Recommended)
+You must login to dhi.io (Free with a Dockerhub user) to download the hardened images.
 
 1. **Clone the repository:**
 ```bash
@@ -156,7 +157,9 @@ cd quakejs-rootless
 ```
 
 2. **Build the image:**
+
 ```bash
+podman login dhi.io
 podman build -t quakejs-rootless:latest .
 ```
 
@@ -177,6 +180,7 @@ cd quakejs-rootless
 ```
 2. **Build the image:**
 ```bash
+docker login dhi.io
 docker build -t quakejs-rootless:latest .
 ```
 
