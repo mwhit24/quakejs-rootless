@@ -14,16 +14,24 @@ Try it live: **[gibs.oldschoolfrag.com](https://gibs.oldschoolfrag.com/)**
 
 ## About
 
-This project fork provides a fully local QuakeJS server built on @treyyoder's original QuakeJS project with the goal of a creating modern, lightweight, and secure alternative.
+This project fork provides a fully local QuakeJS server built on @treyyoder's original QuakeJS project with the goal of creating a modern, lightweight, and secure alternative.
 
-**Key improvements in this fork:**
-- Modern base: Docker Hardened Image (Debian 13), Node.js 22.x LTS, Nginx-light
-- Security: Significant CVE reduction, goal of zero High or Critical CVEs, runs as non-root
-- Updated NPM packages where possible
-- Multiplexed web and game traffic over a single port
-- Small image size (~280MB)
+## What's Different?
 
-**What this fork has not done (so far):**
+This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://github.com/treyyoder/quakejs-docker) with the following updates:
+
+| Component | Original | This Fork |
+|-----------|----------|-----------|
+| Base OS | Ubuntu 20.04 | **Debian 13 Docker Hardened Image** |
+| Node.js | 14.x | **22.x LTS** |
+| Web Server | Apache 2 | **Nginx Light** |
+| Networking | Dual Port | **Single Port Multiplexed via Nginx** |
+| CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 1 medium, 15 low** |
+| Container User | root | **non-root** |
+| npm packages | Ancient | **Modernized, with compatibility fixes** |
+> *CVE counts as of 29.05.2026 — Results provided by Docker Scout.*
+
+### Out of Scope
 - Recompile original game code from ioquake3 (still old game code)
 - Introduce new functionality
 
@@ -202,21 +210,7 @@ The server configuration can be customized by modifying `server.cfg`.
 
 - **8080** - Multiplexed Web interface and Game server port. Web requests are handled by Nginx directly, while WebSocket game traffic is seamlessly forwarded internally. This makes proxying behind SSL natively supported via a single port.
 
-## What's Different?
-
-This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://github.com/treyyoder/quakejs-docker) with the following updates:
-
-| Component | Original | This Fork |
-|-----------|----------|-----------|
-| Base OS | Ubuntu 20.04 | **Debian 13 Docker Hardened Image** |
-| Node.js | 14.x | **22.x LTS** |
-| Web Server | Apache 2 | **Nginx Light** |
-| Networking | Dual Port | **Single Port Multiplexed via Nginx** |
-| CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 1 medium, 15 low** |
-| Container User | root | **non-root** |
-> *CVE counts as of 29.05.2026 — Results provided by Docker Scout.*
-
-## 🙏 Credits & Acknowledgments
+## Credits & Acknowledgments
 This wouldn't be possible without these projects or contributors:
 - **[@jonasbg](https://github.com/jonasbg)** - Hardened Kubernetes Helm chart and OCI publishing workflow
 - **[@treyyoder](https://github.com/treyyoder)** - Original [quakejs-docker](https://github.com/treyyoder/quakejs-docker) implementation that made fully local QuakeJS servers possible
