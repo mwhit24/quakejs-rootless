@@ -14,22 +14,17 @@ Try it live: **[gibs.oldschoolfrag.com](https://gibs.oldschoolfrag.com/)**
 
 ## About
 
-This project fork provides a fully local QuakeJS server built on @treyyoder's original QuakeJS project with the goal of creating a modern, lightweight, and secure alternative.
+This project is a fully local QuakeJS server fork based on @treyyoder's original repository. The primary goal of this fork is to deliver a modern, lightweight, and secure alternative. 
+To achieve this, the original game code was refactored to support modern npm packages, resulting in a meaningful reduction of critical and high-severity vulnerabilities.
 
-## What's Different?
-
-This fork builds upon the excellent work of [@treyyoder/quakejs-docker](https://github.com/treyyoder/quakejs-docker) with the following updates:
-
-| Component | Original | This Fork |
-|-----------|----------|-----------|
-| Base OS | Ubuntu 20.04 | **Debian 13 Docker Hardened Image** |
-| Node.js | 14.x | **22.x LTS** |
-| Web Server | Apache 2 | **Nginx Light** |
-| Networking | Dual Port | **Single Port Multiplexed via Nginx** |
-| CVEs | 5 critical, 14 high, 999+ medium | **0 critical, 0 high, 1 medium** |
-| Container User | root | **non-root** |
-| npm packages | Ancient | **Modernized, with compatibility fixes** |
-> *CVE counts as of 29.05.2026 — Results provided by Docker Scout.*
+| Component | This Fork |
+|-----------|-----------|
+| Base OS | **Debian 13 Docker Hardened Image** |
+| Node.js | **22.x LTS** |
+| Web Server | **Nginx Light** |
+| Networking | **Single Port Multiplexed via Nginx** |
+| Container User | **non-root** |
+| npm packages | **Modernized, with compatibility fixes** |
 
 ### Out of Scope
 - Recompile original game code from ioquake3 (still old game code)
