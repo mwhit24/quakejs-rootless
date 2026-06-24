@@ -8,8 +8,12 @@
 # GHCR (public, no auth) and just layer our server.cfg on top.
 FROM ghcr.io/jackbrenn/quakejs-rootless:latest
 
-# Image runs as nonroot (UID 65532); keep the cfg owned by that user.
+# Image runs as nonroot (UID 65532); keep files owned by that user.
 COPY --chown=65532:65532 server.cfg /quakejs/base/baseq3/server.cfg
 COPY --chown=65532:65532 server.cfg /quakejs/base/cpma/server.cfg
+
+# Override the served launcher with our version (adds localStorage-persisted
+# player names). nginx serves from /home/nonroot/www.
+COPY --chown=65532:65532 quakejs/html/index.html /home/nonroot/www/index.html
 
 EXPOSE 8080

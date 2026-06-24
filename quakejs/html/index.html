@@ -92,7 +92,20 @@
 				var url = new URL(window.location.href);
                                 var port = url.port || (url.protocol === "https:" ? "443" : "80");
                                 var connectAddr = url.hostname + ":" + port;
-				var args = ['+set', 'fs_cdn', connectAddr, '+connect', connectAddr];
+
+				// persistent player name (saved in this browser's localStorage).
+				// First visit: prompt once and save. Visit ?rename to change it.
+				if (url.searchParams.has('rename')) {
+					try { localStorage.removeItem('q3name'); } catch (e) {}
+				}
+				var playerName = null;
+				try { playerName = localStorage.getItem('q3name'); } catch (e) {}
+				if (!playerName) {
+					playerName = (window.prompt('Choose your Quake name:', 'Player') || 'Player').trim() || 'Player';
+					try { localStorage.setItem('q3name', playerName); } catch (e) {}
+				}
+
+				var args = ['+set', 'fs_cdn', connectAddr, '+set', 'name', playerName, '+connect', connectAddr];
 				args.push.apply(args, getQueryCommands());
 				ioq3.callMain(args);
 			};
