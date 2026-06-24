@@ -105,7 +105,8 @@
 					try { localStorage.setItem('q3name', playerName); } catch (e) {}
 				}
 
-				var args = ['+set', 'fs_cdn', connectAddr, '+set', 'name', playerName, '+connect', connectAddr];
+				// 'setu' flags name as userinfo so it's transmitted to the server on connect.
+				var args = ['+set', 'fs_cdn', connectAddr, '+setu', 'name', playerName, '+connect', connectAddr];
 				args.push.apply(args, getQueryCommands());
 				ioq3.callMain(args);
 			};
